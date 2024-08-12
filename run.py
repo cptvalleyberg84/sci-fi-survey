@@ -2,6 +2,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from simple_term_menu import TerminalMenu
 import datetime
+import os
+import platform
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -28,6 +30,9 @@ def greetings_msg():
     print(greetings_txt)
 
 def main():
+
+    clear_screen()
+
     """ The Main Menu of the Sci-fi Survey"""
     greetings_msg()
     options = [
@@ -58,6 +63,7 @@ def  sci_fi_survey():
     # data = sheet1.get_all_values()
     # print(data)
 
+    clear_screen()
     #Question 1:
     while True:
         try:
@@ -68,6 +74,8 @@ def  sci_fi_survey():
                 print("\nPlease enter a valid age between 0 and 99.")
         except ValueError:
             print("\nInvalid input. Please enter a number between 0 and 99.")
+
+    clear_screen()
 
     #Question 2:
     sci_fi_options = [
@@ -81,6 +89,8 @@ def  sci_fi_survey():
     sci_fi_menu = TerminalMenu(sci_fi_options, title="\n2. What type of sci-fi do you like most?")
     sci_fi_choice_index = sci_fi_menu.show()
     sci_fi_type = sci_fi_options[sci_fi_choice_index]
+
+    clear_screen()
 
     #Question 3:
     yes_no_options = [
@@ -98,6 +108,8 @@ def  sci_fi_survey():
     #Prepare the data to be stored
     survey_data = [timestamp, age, sci_fi_type, speculative_ficiton]
 
+    clear_screen()
+
     print("\nYour Survey responses:")
     print(f"\nAge: {survey_data[1]}")
     print(f"Preferred Sci-Fi Type: {survey_data[2]}")
@@ -112,8 +124,15 @@ def  sci_fi_survey():
 # def store_survey_data(survey_data):
 #     sheet1.append_row(survey_data)
 
+def clear_screen():
+    """Clears the terminal screen so it's all nice and neat."""
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
 
 if __name__ == '__main__':
+
     main()
 
 
