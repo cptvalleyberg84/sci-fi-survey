@@ -96,13 +96,21 @@ def  sci_fi_survey():
     timestamp =  str(datetime.datetime.now())
 
     #Prepare the data to be stored
-    survey_data = [age, sci_fi_type, speculative_ficiton, timestamp]
+    survey_data = [timestamp, age, sci_fi_type, speculative_ficiton]
 
     print("\nYour Survey responses:")
-    print(f"\nAge: {survey_data[0]}")
-    print(f"Preferred Sci-Fi Type: {survey_data[1]}")
-    print(f"Like Speculative Fiction: {survey_data[2]}")
-    print(f"\n{survey_data[3]}")
+    print(f"\nAge: {survey_data[1]}")
+    print(f"Preferred Sci-Fi Type: {survey_data[2]}")
+    print(f"Like Speculative Fiction: {survey_data[3]}")
+    print(f"\n{survey_data[0]}")
+
+
+    sheet1.append_row(survey_data)
+    # store_survey_data(survey_data)
+    print("Data Stored.")
+
+# def store_survey_data(survey_data):
+#     sheet1.append_row(survey_data)
 
 
 if __name__ == '__main__':
