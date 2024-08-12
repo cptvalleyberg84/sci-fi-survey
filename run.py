@@ -5,6 +5,7 @@ import datetime
 import os
 import platform
 import pandas as pd
+import time
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -48,6 +49,20 @@ def main():
 
     """ The Main Menu of the Sci-fi Survey"""
     greetings_msg()
+
+    print(r"""
+  _________      .__         __________.__ 
+ /   _____/ ____ |__|        \_   _____|__|
+ \_____  \_/ ___\|  |  ______ |    __) |  |
+ /        \  \___|  | /_____/ |     \  |  |
+/_______  /\___  |__|         \___  /  |__|
+   _____\/_ ___\/_______  __ ____ \/_.__.  
+  /  ___|  |  \_  __ \  \/ _/ __ <   |  |  
+  \___ \|  |  /|  | \/\   /\  ___/\___  |  
+ /____  |____/ |__|    \_/  \___  / ____|  
+      \/                        \/\/       
+""")
+
     options = [
         'Sci-Fi Survey', 
         'Data & Results', 
@@ -68,9 +83,14 @@ def main():
         # print("Data Results")
     elif menu_entry_index == 2:
         print("Made by Valleyberg")
+        # Check attributes of each column in dataframe
+        print(df.dtypes)
     elif menu_entry_index == 3:
         print("Live Long and Prosper!")
         exit()
+
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
+df = df.dropna(subset=["Age"])
 
 def  sci_fi_survey():
     """ The Sci-Fi Survey Section"""
@@ -166,14 +186,59 @@ def  sci_fi_survey():
     sheet1.append_row(survey_data)
     # store_survey_data(survey_data)
     print("Data Stored.")
+    time.sleep(1)
+    main()
 
 # def store_survey_data(survey_data):
 #     sheet1.append_row(survey_data)
 
 def data_results():
-    print(df.head())
+#    print(df.head())
+    clear_screen()
 
+    data_greet_txt = """
+    Let's analize our Sci-Fi data!
+    """
+    print(data_greet_txt)
 
+    data_results_menu_options = [
+        "Sci-Fi-Fans Age",
+        "Fav Sci-Fi Type",
+        "How many like Speculative Fiction",
+        "Sci-Fi Frequention",
+        "Sci-Fi Medium Style",
+        "Main Menu"
+    ]
+
+    data_results_menu = TerminalMenu(data_results_menu_options, title="\nWhich stats would you wish to reveal?\n")
+    data_results_index = data_results_menu.show()
+
+    if data_results_index == 0:
+        age_data()
+        print("Age Data")
+    elif data_results_index == 1:
+        print("Sci-Fi Type")
+    elif data_results_index == 2:
+        print("Speculative Fiction")
+    elif data_results_index == 3:
+        print("Frequency")
+    elif data_results_index == 4:
+        print('Medium')
+    elif data_results_index == 5:
+        print("Stats are awesome! You're now part of the journey! Come again :) ")
+        time.sleep(1)
+        main()
+
+def age_data():
+    mean_age = df["Age"].mean()
+    #print(mean_age)
+    median_age = df["Age"].median()
+    #print(median_age)
+    age_distribution = df["Age"].value_counts().sort_index()
+
+    input("\nPress any key to return to the menu")
+    data_results()
+    
 def clear_screen():
     """Clears the terminal screen so it's all nice and neat."""
     if platform.system() == "Windows":
