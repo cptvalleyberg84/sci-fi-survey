@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from simple_term_menu import TerminalMenu
+import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -54,8 +55,54 @@ def main():
 
 def  sci_fi_survey():
     """ The Sci-Fi Survey Section"""
-    data = sheet1.get_all_values()
-    print(data)
+    # data = sheet1.get_all_values()
+    # print(data)
+
+    #Question 1:
+    while True:
+        try:
+            age = int(input("\nHow old are you? \n\n (Enter a number between 0 and 99): "))
+            if 0 <= age <= 99:
+                break
+            else:
+                print("\nPlease enter a valid age between 0 and 99.")
+        except ValueError:
+            print("\nInvalid input. Please enter a number between 0 and 99.")
+
+    #Question 2:
+    sci_fi_options = [
+        "Space Opera", 
+        "Cyberpunk", 
+        "Time Travel", 
+        "Dystopian", 
+        "Alien Invasion"
+        ]
+
+    sci_fi_menu = TerminalMenu(sci_fi_options, title="\n2. What type of sci-fi do you like most?")
+    sci_fi_choice_index = sci_fi_menu.show()
+    sci_fi_type = sci_fi_options[sci_fi_choice_index]
+
+    #Question 3:
+    yes_no_options = [
+        "Yes", 
+        "No"
+        ]
+    
+    yes_no_menu = TerminalMenu(yes_no_options, title = "\n3. Do you like speculative fiction?")
+    yes_no_choice_index = yes_no_menu.show()
+    speculative_ficiton = yes_no_options[yes_no_choice_index]
+
+    #Current TimeStamp
+    timestamp =  str(datetime.datetime.now())
+
+    #Prepare the data to be stored
+    survey_data = [age, sci_fi_type, speculative_ficiton, timestamp]
+
+    print("\nYour Survey responses:")
+    print(f"\nAge: {survey_data[0]}")
+    print(f"Preferred Sci-Fi Type: {survey_data[1]}")
+    print(f"Like Speculative Fiction: {survey_data[2]}")
+    print(f"\n{survey_data[3]}")
 
 
 if __name__ == '__main__':
