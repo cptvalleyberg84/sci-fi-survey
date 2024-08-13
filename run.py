@@ -36,12 +36,14 @@ df = pd.DataFrame(data, columns=[
 # Print All Data from the Google Sheets file
 # print(data)
 
+
 def greetings_msg():
     """Function to display the Survey Greetings"""
     greetings_txt = """
     Greetings to the Sci-Fi Survey!
     """
     print(greetings_txt)
+
 
 def main():
 
@@ -51,29 +53,29 @@ def main():
     greetings_msg()
 
     print(r"""
-  _________      .__         __________.__ 
+  _________      .__         __________.__
  /   _____/ ____ |__|        \_   _____|__|
  \_____  \_/ ___\|  |  ______ |    __) |  |
  /        \  \___|  | /_____/ |     \  |  |
 /_______  /\___  |__|         \___  /  |__|
-   _____\/_ ___\/_______  __ ____ \/_.__.  
-  /  ___|  |  \_  __ \  \/ _/ __ <   |  |  
-  \___ \|  |  /|  | \/\   /\  ___/\___  |  
- /____  |____/ |__|    \_/  \___  / ____|  
-      \/                        \/\/       
+   _____\/_ ___\/_______  __ ____ \/_.__.
+  /  ___|  |  \_  __ \  \/ _/ __ <   |  |
+  \___ \|  |  /|  | \/\   /\  ___/\___  |
+ /____  |____/ |__|    \_/  \___  / ____|
+      \/                        \/\/
 """)
 
     options = [
-        'Sci-Fi Survey', 
-        'Data & Results', 
-        'About Sci-FI Survey', 
+        'Sci-Fi Survey',
+        'Data & Results',
+        'About Sci-FI Survey',
         'Exit'
         ]
-    
+
     main_menu = TerminalMenu(options)
-    
+
     menu_entry_index = main_menu.show()
-    
+
     # print(f"You've chosen {options[menu_entry_index]}!")
 
     if menu_entry_index == 0:
@@ -89,16 +91,19 @@ def main():
         print("Live Long and Prosper!")
         exit()
 
+
+# Convert Age data to numbers
 df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
 df = df.dropna(subset=["Age"])
 
-def  sci_fi_survey():
+
+def sci_fi_survey():
     """ The Sci-Fi Survey Section"""
     # data = sheet1.get_all_values()
     # print(data)
 
     clear_screen()
-    #Question 1:
+    # Question 1:
     while True:
         try:
             age = int(input("\nHow old are you? \n\n (Enter a number between 0 and 99): "))
@@ -111,12 +116,12 @@ def  sci_fi_survey():
 
     clear_screen()
 
-    #Question 2:
+    # Question 2:
     sci_fi_options = [
-        "Space Opera", 
-        "Cyberpunk", 
-        "Time Travel", 
-        "Dystopian", 
+        "Space Opera",
+        "Cyberpunk",
+        "Time Travel",
+        "Dystopian",
         "Alien Invasion"
         ]
 
@@ -126,19 +131,19 @@ def  sci_fi_survey():
 
     clear_screen()
 
-    #Question 3:
+    # Question 3:
     spec_fi_options = [
-        "Yes", 
+        "Yes",
         "No"
         ]
-    
-    spec_fi_menu = TerminalMenu(spec_fi_options, title = "\n3. Do you like speculative fiction?")
+
+    spec_fi_menu = TerminalMenu(spec_fi_options, title="\n3. Do you like speculative fiction?")
     spec_fi_choice_index = spec_fi_menu.show()
-    speculative_ficiton = spec_fi_options[spec_fi_choice_index]
+    speculative_fiction = spec_fi_options[spec_fi_choice_index]
 
     clear_screen()
 
-    #Question 4:
+    # Question 4:
     sci_fi_freq_options = [
         "Daily",
         "Weekly",
@@ -152,7 +157,7 @@ def  sci_fi_survey():
 
     clear_screen()
 
-    #Question 5:
+    # Question 5:
     sci_fi_medium_options = [
         "Books",
         "Movies",
@@ -163,14 +168,14 @@ def  sci_fi_survey():
     sci_fi_medium_menu = TerminalMenu(sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
     sci_fi_medium_choice_index = sci_fi_medium_menu.show()
     sci_fi_medium = sci_fi_medium_options[sci_fi_medium_choice_index]
-    
+
     clear_screen()
 
-    #Current TimeStamp
-    timestamp =  str(datetime.datetime.now())
+    # Current TimeStamp
+    timestamp = str(datetime.datetime.now())
 
-    #Prepare the data to be stored
-    survey_data = [timestamp, age, sci_fi_type, speculative_ficiton, sci_fi_freq, sci_fi_medium]
+    # Prepare the data to be stored
+    survey_data = [timestamp, age, sci_fi_type, speculative_fiction, sci_fi_freq, sci_fi_medium]
 
     clear_screen()
 
@@ -182,7 +187,6 @@ def  sci_fi_survey():
     print(f"Favourite Sci-Fi Medium: {survey_data[5]}")
     print(f"\n{survey_data[0]}")
 
-
     sheet1.append_row(survey_data)
     # store_survey_data(survey_data)
     print("Data Stored.")
@@ -192,8 +196,9 @@ def  sci_fi_survey():
 # def store_survey_data(survey_data):
 #     sheet1.append_row(survey_data)
 
+
 def data_results():
-#    print(df.head())
+    # print(df.head())
     clear_screen()
 
     data_greet_txt = """
@@ -220,7 +225,7 @@ def data_results():
         sci_fi_type_data()
         print("Sci-Fi Type")
     elif data_results_index == 2:
-        speculative_ficiton_data()
+        speculative_fiction_data()
         print("Speculative Fiction")
     elif data_results_index == 3:
         engagement_frequency_data()
@@ -233,14 +238,16 @@ def data_results():
         time.sleep(1)
         main()
 
+
 def sci_fi_medium_data():
     """Function to analize and display Favourite Sci-Fi Medium Data"""
     sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
 
     for sci_fi_medium, count in sci_fi_medium_counts.items():
         print(f"{sci_fi_medium}: {count}")
-    
+
     go_back_to_results_menu()
+
 
 def engagement_frequency_data():
     """Function to analize and display Engagement Frequency Data"""
@@ -249,8 +256,9 @@ def engagement_frequency_data():
     print("Engangement Frequency:\n")
     for sci_fi_freq, count in engagement_frequency_counts.items():
         print(f"{sci_fi_freq}: {count}")
-    
+
     go_back_to_results_menu()
+
 
 def sci_fi_type_data():
     """Function to analyze and display Sci-Fi Type Data"""
@@ -262,25 +270,26 @@ def sci_fi_type_data():
 
     go_back_to_results_menu()
 
-def speculative_ficiton_data():
+
+def speculative_fiction_data():
     """Function to analyze and display Speculative Fiction Data"""
-    speculative_ficiton_counts = df["Likes Speculative Fiction"].value_counts()
+    speculative_fiction_counts = df["Likes Speculative Fiction"].value_counts()
 
     print("Likes Speculative Fiction:\n")
-    for speculative_ficiton, count in speculative_ficiton_counts.items():
-        print(f"{speculative_ficiton}: {count}")
+    for speculative_fiction, count in speculative_fiction_counts.items():
+        print(f"{speculative_fiction}: {count}")
 
-    #Let's add additional percentage to liking or disliking speculative fiction
-    total_responses_sf  = speculative_ficiton_counts.sum()
+    # Add additional percentage to liking or disliking speculative fiction
+    total_responses_sf  = speculative_fiction_counts.sum()
 
-    yes_sf_count = speculative_ficiton_counts.get("Yes", 0)
-    no_sf_count = speculative_ficiton_counts.get("No", 0)
+    yes_sf_count = speculative_fiction_counts.get("Yes", 0)
+    no_sf_count = speculative_fiction_counts.get("No", 0)
 
-    #Calculate %%%
+    # Calculate %%% of yes and no answers
     yes_sf_percentage = (yes_sf_count / total_responses_sf) * 100
     no_sf_percentage = (no_sf_count / total_responses_sf) * 100
 
-    #Determine Majority
+    # Determine Majority
     if yes_sf_count > no_sf_count:
         print(f"\nMajority ({yes_sf_percentage:.2f}%) likes speculative fiction! <3 <3 <3")
     else:
@@ -288,13 +297,14 @@ def speculative_ficiton_data():
 
     go_back_to_results_menu()
 
+
 def age_data():
     """Function to analize and display Age Data"""
     mean_age = df["Age"].mean()
     youngest_age = df["Age"].min()
     oldest_age = df["Age"].max()
 
-    #Display calculated values
+    # Display calculated values
     print("Age Data Analysis:\n")
     print(f"Mean Age: {mean_age:.2f}")
     print(f"Youngest Participant: {youngest_age}")
@@ -303,10 +313,12 @@ def age_data():
     # Pause to allow the user to see the results
     go_back_to_results_menu()
 
+
 def go_back_to_results_menu():
     input("\nPress the ENTER key to return to the menu...")
     data_results()
-    
+
+
 def clear_screen():
     """Clears the terminal screen so it's all nice and neat."""
     if platform.system() == "Windows":
@@ -314,9 +326,6 @@ def clear_screen():
     else:
         os.system('clear')
 
+
 if __name__ == '__main__':
-
     main()
-
-
-
