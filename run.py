@@ -217,26 +217,94 @@ def data_results():
         age_data()
         print("Age Data")
     elif data_results_index == 1:
+        sci_fi_type_data()
         print("Sci-Fi Type")
     elif data_results_index == 2:
+        speculative_ficiton_data()
         print("Speculative Fiction")
     elif data_results_index == 3:
+        engagement_frequency_data()
         print("Frequency")
     elif data_results_index == 4:
+        sci_fi_medium_data()
         print('Medium')
     elif data_results_index == 5:
         print("Stats are awesome! You're now part of the journey! Come again :) ")
         time.sleep(1)
         main()
 
-def age_data():
-    mean_age = df["Age"].mean()
-    #print(mean_age)
-    median_age = df["Age"].median()
-    #print(median_age)
-    age_distribution = df["Age"].value_counts().sort_index()
+def sci_fi_medium_data():
+    """Function to analize and display Favourite Sci-Fi Medium Data"""
+    sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
 
-    input("\nPress any key to return to the menu")
+    for sci_fi_medium, count in sci_fi_medium_counts.items():
+        print(f"{sci_fi_medium}: {count}")
+    
+    go_back_to_results_menu()
+
+def engagement_frequency_data():
+    """Function to analize and display Engagement Frequency Data"""
+    engagement_frequency_counts = df["Engangement Frequency"].value_counts()
+
+    print("Engangement Frequency:\n")
+    for sci_fi_freq, count in engagement_frequency_counts.items():
+        print(f"{sci_fi_freq}: {count}")
+    
+    go_back_to_results_menu()
+
+def sci_fi_type_data():
+    """Function to analyze and display Sci-Fi Type Data"""
+    sci_fi_counts = df["Sci-Fi Type"].value_counts()
+
+    print("Sci-Fi Type Preferences:\n")
+    for sci_fi_type, count in sci_fi_counts.items():
+        print(f"{sci_fi_type}: {count}")
+
+    go_back_to_results_menu()
+
+def speculative_ficiton_data():
+    """Function to analyze and display Speculative Fiction Data"""
+    speculative_ficiton_counts = df["Likes Speculative Fiction"].value_counts()
+
+    print("Likes Speculative Fiction:\n")
+    for speculative_ficiton, count in speculative_ficiton_counts.items():
+        print(f"{speculative_ficiton}: {count}")
+
+    #Let's add additional percentage to liking or disliking speculative fiction
+    total_responses_sf  = speculative_ficiton_counts.sum()
+
+    yes_sf_count = speculative_ficiton_counts.get("Yes", 0)
+    no_sf_count = speculative_ficiton_counts.get("No", 0)
+
+    #Calculate %%%
+    yes_sf_percentage = (yes_sf_count / total_responses_sf) * 100
+    no_sf_percentage = (no_sf_count / total_responses_sf) * 100
+
+    #Determine Majority
+    if yes_sf_count > no_sf_count:
+        print(f"\nMajority ({yes_sf_percentage:.2f}%) likes speculative fiction! <3 <3 <3")
+    else:
+        print(f"\nMajority ({no_sf_percentage:.2f}%) do not like speculative fiction. :((  </3))")
+
+    go_back_to_results_menu()
+
+def age_data():
+    """Function to analize and display Age Data"""
+    mean_age = df["Age"].mean()
+    youngest_age = df["Age"].min()
+    oldest_age = df["Age"].max()
+
+    #Display calculated values
+    print("Age Data Analysis:\n")
+    print(f"Mean Age: {mean_age:.2f}")
+    print(f"Youngest Participant: {youngest_age}")
+    print(f"Oldest Participant: {oldest_age}")
+
+    # Pause to allow the user to see the results
+    go_back_to_results_menu()
+
+def go_back_to_results_menu():
+    input("\nPress the ENTER key to return to the menu...")
     data_results()
     
 def clear_screen():
