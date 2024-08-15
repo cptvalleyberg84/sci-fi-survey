@@ -29,7 +29,7 @@ df = pd.DataFrame(data, columns=[
     "Age",
     "Sci-Fi Type",
     "Likes Speculative Fiction",
-    "Engangement Frequency",
+    "Engagement Frequency",
     "Favourite Sci-Fi Medium"
 ])
 
@@ -106,13 +106,14 @@ def sci_fi_survey():
     # Question 1:
     while True:
         try:
-            age = int(input("\nHow old are you? \n\n (Enter a number between 0 and 99): "))
-            if 0 <= age <= 99:
+            age = int(
+input("\nHow old are you? \n\n (Enter a number between 7 and 99): "))
+            if 7 <= age <= 99:
                 break
             else:
-                print("\nPlease enter a valid age between 0 and 99.")
+                print("\nPlease enter a valid age between 7 and 99.")
         except ValueError:
-            print("\nInvalid input. Please enter a number between 0 and 99.")
+            print("\nInvalid input. Please enter a number between 7 and 99.")
 
     clear_screen()
 
@@ -125,7 +126,8 @@ def sci_fi_survey():
         "Alien Invasion"
         ]
 
-    sci_fi_menu = TerminalMenu(sci_fi_options, title="\n2. What type of sci-fi do you like most?")
+    sci_fi_menu = TerminalMenu(
+sci_fi_options, title="\n2. What type of sci-fi do you like most?")
     sci_fi_choice_index = sci_fi_menu.show()
     sci_fi_type = sci_fi_options[sci_fi_choice_index]
 
@@ -137,7 +139,8 @@ def sci_fi_survey():
         "No"
         ]
 
-    spec_fi_menu = TerminalMenu(spec_fi_options, title="\n3. Do you like speculative fiction?")
+    spec_fi_menu = TerminalMenu(
+spec_fi_options, title="\n3. Do you like speculative fiction?")
     spec_fi_choice_index = spec_fi_menu.show()
     speculative_fiction = spec_fi_options[spec_fi_choice_index]
 
@@ -151,7 +154,8 @@ def sci_fi_survey():
         "All the time!"
         ]
 
-    sci_fi_freq_menu = TerminalMenu(sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
+    sci_fi_freq_menu = TerminalMenu(
+sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
     sci_fi_freq_choice_index = sci_fi_freq_menu.show()
     sci_fi_freq = sci_fi_freq_options[sci_fi_freq_choice_index]
 
@@ -165,7 +169,8 @@ def sci_fi_survey():
         "Video Games"
     ]
 
-    sci_fi_medium_menu = TerminalMenu(sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
+    sci_fi_medium_menu = TerminalMenu(
+sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
     sci_fi_medium_choice_index = sci_fi_medium_menu.show()
     sci_fi_medium = sci_fi_medium_options[sci_fi_medium_choice_index]
 
@@ -175,7 +180,14 @@ def sci_fi_survey():
     timestamp = str(datetime.datetime.now())
 
     # Prepare the data to be stored
-    survey_data = [timestamp, age, sci_fi_type, speculative_fiction, sci_fi_freq, sci_fi_medium]
+    survey_data = [
+        timestamp, 
+        age, 
+        sci_fi_type, 
+        speculative_fiction, 
+        sci_fi_freq, 
+        sci_fi_medium
+        ]
 
     clear_screen()
 
@@ -197,6 +209,13 @@ def sci_fi_survey():
 #     sheet1.append_row(survey_data)
 
 
+def create_menu(title, options):
+    """Helper function to create and display menu"""
+    menu = TerminalMenu(options, title=title)
+    choice_index = menu.show()
+    return choice_index
+
+
 def data_results():
     # print(df.head())
     clear_screen()
@@ -212,11 +231,18 @@ def data_results():
         "How many like Speculative Fiction",
         "Sci-Fi Frequention",
         "Sci-Fi Medium Style",
-        "Main Menu"
+        "Engagement vs Speculative Fiction",
+        "Favourite Sci-Fi by Age Group",
+        "Main Menu"    
     ]
 
-    data_results_menu = TerminalMenu(data_results_menu_options, title="\nWhich stats would you wish to reveal?\n")
-    data_results_index = data_results_menu.show()
+#     data_results_menu = TerminalMenu(
+# data_results_menu_options, title="\nWhich stats would you wish to reveal?\n")
+#     data_results_index = data_results_menu.show()
+
+    data_results_index = create_menu(
+        "\nWhich stats would you wish to reveal?\n", 
+        data_results_menu_options)
 
     if data_results_index == 0:
         age_data()
@@ -234,9 +260,42 @@ def data_results():
         sci_fi_medium_data()
         print('Medium')
     elif data_results_index == 5:
-        print("Stats are awesome! You're now part of the journey! Come again :) ")
+        engagement_vs_speculative_fiction()
+    elif data_results_index == 6:
+        favourite_sci_fi_by_age_group()
+    elif data_results_index == 7:
+        print(
+"Stats are awesome! You're now part of the journey! Come again :)")
         time.sleep(1)
         main()
+
+
+def favourite_sci_fi_by_age_group():
+    """Function to analize and display Favourite Sci-Fi type by Age Group"""
+    #Define Groups
+    bins = [7, 18, 30, 45, 60, 100]
+    groups = ['7-18','19-30','31-45','46-60','61+']
+    df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
+
+    # Group by Age Group and Sci-Fi Type
+    age_grouped = df.groupby(["Age Group", 'Sci-Fi Type']).size().unstack().fillna(0)
+
+    print("\nFavorite Sci-Fi Type by Age Group:\n")
+    print(age_grouped)
+
+    go_back_to_results_menu()
+
+
+def engagement_vs_speculative_fiction():
+    """Analize/display how engagement frequency 
+    correlates with liking speculative fiction"""
+    engagement_vs_sf = pd.crosstab(
+        df['Engagement Frequency'], df['Likes Speculative Fiction'])
+
+    print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
+    print(engagement_vs_sf)
+
+    go_back_to_results_menu()
 
 
 def sci_fi_medium_data():
@@ -251,7 +310,7 @@ def sci_fi_medium_data():
 
 def engagement_frequency_data():
     """Function to analize and display Engagement Frequency Data"""
-    engagement_frequency_counts = df["Engangement Frequency"].value_counts()
+    engagement_frequency_counts = df["Engagement Frequency"].value_counts()
 
     print("Engangement Frequency:\n")
     for sci_fi_freq, count in engagement_frequency_counts.items():
@@ -291,9 +350,12 @@ def speculative_fiction_data():
 
     # Determine Majority
     if yes_sf_count > no_sf_count:
-        print(f"\nMajority ({yes_sf_percentage:.2f}%) likes speculative fiction! <3 <3 <3")
+        print(
+f"\nMajority ({yes_sf_percentage:.2f}%) likes speculative fiction! <3 <3 <3"
+)
     else:
-        print(f"\nMajority ({no_sf_percentage:.2f}%) do not like speculative fiction. :((  </3))")
+        print(
+f"\nMajority ({no_sf_percentage:.2f}%) don't like speculative fiction. :( </3)")
 
     go_back_to_results_menu()
 

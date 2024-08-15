@@ -15,6 +15,7 @@
 # Resources
 
 - [simple-term-menu 1.6.4](https://pypi.org/project/simple-term-menu/)
+- [gspread](https://docs.gspread.org/en/v6.1.2/)
 - [pandas 2.2.2](https://pypi.org/project/pandas/)
 - [10 minutes to pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html)
 - [pandas.DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)
@@ -26,6 +27,7 @@
 - [OS Module in Python with Examples](https://www.geeksforgeeks.org/os-module-python-examples/)
 - [Make Python Wait For a Pressed Key](https://www.geeksforgeeks.org/make-python-wait-for-a-pressed-key/)
 - [How do I make a time delay?](https://stackoverflow.com/questions/510348/how-do-i-make-a-time-delay)
+- [The Python Requirements File and How to Create it](https://learnpython.com/blog/python-requirements-file/)
 
 - [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=display&h=3&v=2&f=Graffiti&t=Sci-Fi%0A%20survey)
 - [Print full ascii art](https://stackoverflow.com/questions/23623288/print-full-ascii-art)
