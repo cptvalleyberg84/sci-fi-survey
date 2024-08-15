@@ -1,11 +1,11 @@
 import gspread
-from google.oauth2.service_account import Credentials
-from simple_term_menu import TerminalMenu
+import time
 import datetime
 import os
 import platform
 import pandas as pd
-import time
+from google.oauth2.service_account import Credentials
+from simple_term_menu import TerminalMenu
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -37,21 +37,25 @@ df = pd.DataFrame(data, columns=[
 # print(data)
 
 
+# Convert Age data to numbers
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
+df = df.dropna(subset=["Age"])
+
+
+def clear_screen():
+    """Clears the terminal screen so it's all nice and neat."""
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
+
+
 def greetings_msg():
     """Function to display the Survey Greetings"""
     greetings_txt = """
     Greetings to the Sci-Fi Survey!
     """
     print(greetings_txt)
-
-
-def main():
-
-    clear_screen()
-
-    """ The Main Menu of the Sci-fi Survey"""
-    greetings_msg()
-
     print(r"""
   _________      .__         __________.__
  /   _____/ ____ |__|        \_   _____|__|
@@ -65,36 +69,12 @@ def main():
       \/                        \/\/
 """)
 
-    options = [
-        'Sci-Fi Survey',
-        'Data & Results',
-        'About Sci-FI Survey',
-        'Exit'
-        ]
 
-    main_menu = TerminalMenu(options)
-
-    menu_entry_index = main_menu.show()
-
-    # print(f"You've chosen {options[menu_entry_index]}!")
-
-    if menu_entry_index == 0:
-        sci_fi_survey()
-    elif menu_entry_index == 1:
-        data_results()
-        # print("Data Results")
-    elif menu_entry_index == 2:
-        print("Made by Valleyberg")
-        # Check attributes of each column in dataframe
-        print(df.dtypes)
-    elif menu_entry_index == 3:
-        print("Live Long and Prosper!")
-        exit()
-
-
-# Convert Age data to numbers
-df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
-df = df.dropna(subset=["Age"])
+def create_menu(title, options):
+    """Helper function to create and display menu"""
+    menu = TerminalMenu(options, title=title)
+    choice_index = menu.show()
+    return choice_index
 
 
 def sci_fi_survey():
@@ -209,14 +189,8 @@ sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
 #     sheet1.append_row(survey_data)
 
 
-def create_menu(title, options):
-    """Helper function to create and display menu"""
-    menu = TerminalMenu(options, title=title)
-    choice_index = menu.show()
-    return choice_index
-
-
 def data_results():
+    """Display the Data Results Menu"""
     # print(df.head())
     clear_screen()
 
@@ -270,54 +244,21 @@ def data_results():
         main()
 
 
-def favourite_sci_fi_by_age_group():
-    """Function to analize and display Favourite Sci-Fi type by Age Group"""
-    #Define Groups
-    bins = [7, 18, 30, 45, 60, 100]
-    groups = ['7-18','19-30','31-45','46-60','61+']
-    df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
+def age_data():
+    """Function to analize and display Age Data"""
+    mean_age = df["Age"].mean()
+    youngest_age = df["Age"].min()
+    oldest_age = df["Age"].max()
 
-    # Group by Age Group and Sci-Fi Type
-    age_grouped = df.groupby(["Age Group", 'Sci-Fi Type']).size().unstack().fillna(0)
+    # Display calculated values
+    print("Age Data Analysis:\n")
+    print(f"Mean Age: {mean_age:.2f}")
+    print(f"Youngest Participant: {youngest_age}")
+    print(f"Oldest Participant: {oldest_age}")
 
-    print("\nFavorite Sci-Fi Type by Age Group:\n")
-    print(age_grouped)
-
+    # Pause to allow the user to see the results
     go_back_to_results_menu()
-
-
-def engagement_vs_speculative_fiction():
-    """Analize/display how engagement frequency 
-    correlates with liking speculative fiction"""
-    engagement_vs_sf = pd.crosstab(
-        df['Engagement Frequency'], df['Likes Speculative Fiction'])
-
-    print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
-    print(engagement_vs_sf)
-
-    go_back_to_results_menu()
-
-
-def sci_fi_medium_data():
-    """Function to analize and display Favourite Sci-Fi Medium Data"""
-    sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
-
-    for sci_fi_medium, count in sci_fi_medium_counts.items():
-        print(f"{sci_fi_medium}: {count}")
-
-    go_back_to_results_menu()
-
-
-def engagement_frequency_data():
-    """Function to analize and display Engagement Frequency Data"""
-    engagement_frequency_counts = df["Engagement Frequency"].value_counts()
-
-    print("Engangement Frequency:\n")
-    for sci_fi_freq, count in engagement_frequency_counts.items():
-        print(f"{sci_fi_freq}: {count}")
-
-    go_back_to_results_menu()
-
+    
 
 def sci_fi_type_data():
     """Function to analyze and display Sci-Fi Type Data"""
@@ -360,33 +301,100 @@ f"\nMajority ({no_sf_percentage:.2f}%) don't like speculative fiction. :( </3)")
     go_back_to_results_menu()
 
 
-def age_data():
-    """Function to analize and display Age Data"""
-    mean_age = df["Age"].mean()
-    youngest_age = df["Age"].min()
-    oldest_age = df["Age"].max()
+def engagement_frequency_data():
+    """Function to analize and display Engagement Frequency Data"""
+    engagement_frequency_counts = df["Engagement Frequency"].value_counts()
 
-    # Display calculated values
-    print("Age Data Analysis:\n")
-    print(f"Mean Age: {mean_age:.2f}")
-    print(f"Youngest Participant: {youngest_age}")
-    print(f"Oldest Participant: {oldest_age}")
+    print("Engangement Frequency:\n")
+    for sci_fi_freq, count in engagement_frequency_counts.items():
+        print(f"{sci_fi_freq}: {count}")
 
-    # Pause to allow the user to see the results
+    go_back_to_results_menu()
+
+def sci_fi_medium_data():
+    """Function to analize and display Favourite Sci-Fi Medium Data"""
+    sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
+
+    for sci_fi_medium, count in sci_fi_medium_counts.items():
+        print(f"{sci_fi_medium}: {count}")
+
+    go_back_to_results_menu()
+
+
+def engagement_vs_speculative_fiction():
+    """Analize/display how engagement frequency 
+    correlates with liking speculative fiction"""
+    engagement_vs_sf = pd.crosstab(
+        df['Engagement Frequency'], df['Likes Speculative Fiction'])
+
+    print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
+    print(engagement_vs_sf)
+
+    go_back_to_results_menu()
+
+def favourite_sci_fi_by_age_group():
+    """Function to analize and display Favourite Sci-Fi type by Age Group"""
+    #Define Groups
+    bins = [7, 18, 30, 45, 60, 100]
+    groups = ['7-18','19-30','31-45','46-60','61+']
+    df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
+
+    # Group by Age Group and Sci-Fi Type
+    age_grouped = df.groupby(["Age Group", 'Sci-Fi Type']).size().unstack().fillna(0)
+
+    print("\nFavorite Sci-Fi Type by Age Group:\n")
+    print(age_grouped)
+
     go_back_to_results_menu()
 
 
 def go_back_to_results_menu():
+    """Function to go back to Results Menu"""
     input("\nPress the ENTER key to return to the menu...")
     data_results()
 
 
-def clear_screen():
-    """Clears the terminal screen so it's all nice and neat."""
-    if platform.system() == "Windows":
-        os.system('cls')
-    else:
-        os.system('clear')
+def main():
+    """Function to display greetings and the main menu"""
+    clear_screen()
+    greetings_msg()
+
+    options = [
+        'About Sci-FI Survey',
+        'Sci-Fi Survey',
+        'Data & Results',
+        'Exit'
+        ]
+
+    # main_menu = TerminalMenu(options)
+    # menu_entry_index = main_menu.show()
+
+    menu_entry_index = create_menu("\nMAIN MENU:\n", options)
+
+# EXAMPLE
+        # data_results_index = create_menu(
+        # "\nWhich stats would you wish to reveal?\n", 
+        # data_results_menu_options)
+
+        #     data_results_menu = TerminalMenu(data_results_menu_options, title="\nWhich stats would you wish to reveal?\n")
+#     data_results_index = data_results_menu.show()
+
+    # print(f"You've chosen {options[menu_entry_index]}!")
+
+    if menu_entry_index == 0:
+        print("Made by Valleyberg")
+        # Check attributes of each column in dataframe
+        # print(df.dtypes)
+        time.sleep(1)
+        main()
+    elif menu_entry_index == 1:
+        sci_fi_survey()
+    elif menu_entry_index == 2:
+        data_results()
+        # print("Data Results")
+    elif menu_entry_index == 3:
+        print("Live Long and Prosper!")
+        exit()
 
 
 if __name__ == '__main__':
