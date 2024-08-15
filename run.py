@@ -30,7 +30,8 @@ df = pd.DataFrame(data, columns=[
     "Sci-Fi Type",
     "Likes Speculative Fiction",
     "Engagement Frequency",
-    "Favourite Sci-Fi Medium"
+    "Favourite Sci-Fi Medium",
+    "Favourite Book Type"
 ])
 
 # Print All Data from the Google Sheets file
@@ -111,9 +112,11 @@ def sci_fi_survey():
         "Alien Invasion"
     ]
 
-    sci_fi_menu = TerminalMenu(
-sci_fi_options, title="\n2. What type of sci-fi do you like most?")
-    sci_fi_choice_index = sci_fi_menu.show()
+#     sci_fi_menu = TerminalMenu(
+# sci_fi_options, title="\n2. What type of sci-fi do you like most?")
+#     sci_fi_choice_index = sci_fi_menu.show()
+    sci_fi_choice_index = create_menu(
+        "\n2. What type of sci-fi do you like most?", sci_fi_options)
     sci_fi_type = sci_fi_options[sci_fi_choice_index]
 
     clear_screen()
@@ -124,9 +127,10 @@ sci_fi_options, title="\n2. What type of sci-fi do you like most?")
         "No"
     ]
 
-    spec_fi_menu = TerminalMenu(
-spec_fi_options, title="\n3. Do you like speculative fiction?")
-    spec_fi_choice_index = spec_fi_menu.show()
+#     spec_fi_menu = TerminalMenu(
+# spec_fi_options, title="\n3. Do you like speculative fiction?")
+    spec_fi_choice_index = create_menu(
+        "\n3. Do you like speculative fiction?", spec_fi_options)
     speculative_fiction = spec_fi_options[spec_fi_choice_index]
 
     clear_screen()
@@ -139,9 +143,10 @@ spec_fi_options, title="\n3. Do you like speculative fiction?")
         "All the time!"
     ]
 
-    sci_fi_freq_menu = TerminalMenu(
-sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
-    sci_fi_freq_choice_index = sci_fi_freq_menu.show()
+#     sci_fi_freq_menu = TerminalMenu(
+# sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
+    sci_fi_freq_choice_index = create_menu(
+    "\n4. How often do you engage with Sci-Fi content?", sci_fi_freq_options)
     sci_fi_freq = sci_fi_freq_options[sci_fi_freq_choice_index]
 
     clear_screen()
@@ -154,10 +159,27 @@ sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
         "Video Games"
     ]
 
-    sci_fi_medium_menu = TerminalMenu(
-sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
-    sci_fi_medium_choice_index = sci_fi_medium_menu.show()
+#     sci_fi_medium_menu = TerminalMenu(
+# sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
+    sci_fi_medium_choice_index = create_menu(
+    "\n5. When getting into Sci-Fi you prefer to use:", sci_fi_medium_options)
     sci_fi_medium = sci_fi_medium_options[sci_fi_medium_choice_index]
+
+    clear_screen()
+
+    # Question 6:
+    books_question_options = [
+        "Paperbooks",
+        "Audiobooks",
+        "E-books",
+        "I don't read books!"
+    ]
+
+#     books_question_menu = TerminalMenu(
+# books_question_options, title="\n6. Which type of books do you like the most?")
+    books_question_choice_index = create_menu(
+    "\n6. Which type of books do you like the most?", books_question_options)
+    book_question = books_question_options[books_question_choice_index]
 
     clear_screen()
 
@@ -171,27 +193,48 @@ sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
         sci_fi_type, 
         speculative_fiction, 
         sci_fi_freq, 
-        sci_fi_medium
+        sci_fi_medium,
+        book_question
     ]
 
     clear_screen()
 
-    print("\nYour Survey responses:")
-    print(f"\nAge: {survey_data[1]}")
-    print(f"Preferred Sci-Fi Type: {survey_data[2]}")
-    print(f"Like Speculative Fiction: {survey_data[3]}")
-    print(f"Engangement Frequency: {survey_data[4]}")
-    print(f"Favourite Sci-Fi Medium: {survey_data[5]}")
-    print(f"\n{survey_data[0]}")
+    # print("\nYour Survey responses:")
+    # print(f"\nAge: {survey_data[1]}")
+    # print(f"Preferred Sci-Fi Type: {survey_data[2]}")
+    # print(f"Like Speculative Fiction: {survey_data[3]}")
+    # print(f"Engangement Frequency: {survey_data[4]}")
+    # print(f"Favourite Sci-Fi Medium: {survey_data[5]}")
+    # print(f"Favourite type of Book: {survey_data[6]}")
+    # print(f"\n{survey_data[0]}")
+
+    print_survey_data = {
+        "Age": survey_data[1],
+        "Preferred Sci-Fi Type": survey_data[2],
+        "Like Speculative Fiction": survey_data[3],
+        "Engangement Frequency": survey_data[4],
+        "Favourite Sci-Fi Medium": survey_data[5],
+        "Favourite type of Book": survey_data[6],
+        "Additional Comments": survey_data[0]
+    }
+
+    print_section("Your Survey reponses", print_survey_data)
 
     sheet1.append_row(survey_data)
     # store_survey_data(survey_data)
-    print("Data Stored.")
+    print("\nData Stored.")
     time.sleep(1)
     main()
 
 # def store_survey_data(survey_data):
 #     sheet1.append_row(survey_data)
+
+
+def print_section(title, data):
+    """ Prints a section with a title and key-value pairs."""
+    print(f"\n{title}:\n")
+    for label, value in data.items():
+        print(f"{label}: {value}")
 
 
 def data_results():
