@@ -11,7 +11,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -85,15 +85,20 @@ def sci_fi_survey():
     clear_screen()
     # Question 1:
     while True:
+        age_input = input(
+            "\nHow old are you? \n\n (Enter a number between 7 and 99): ")
         try:
-            age = int(
-input("\nHow old are you? \n\n (Enter a number between 7 and 99): "))
+            if '.' in age_input:
+                print("Please enter a whole number without any decimals.")
+                continue
+            age = int(age_input)
+
             if 7 <= age <= 99:
                 break
             else:
                 print("\nPlease enter a valid age between 7 and 99.")
         except ValueError:
-            print("\nInvalid input. Please enter a number between 7 and 99.")
+            print("\nInvalid input: Please enter a number between 7 and 99.")
 
     clear_screen()
 
@@ -104,7 +109,7 @@ input("\nHow old are you? \n\n (Enter a number between 7 and 99): "))
         "Time Travel",
         "Dystopian",
         "Alien Invasion"
-        ]
+    ]
 
     sci_fi_menu = TerminalMenu(
 sci_fi_options, title="\n2. What type of sci-fi do you like most?")
@@ -117,7 +122,7 @@ sci_fi_options, title="\n2. What type of sci-fi do you like most?")
     spec_fi_options = [
         "Yes",
         "No"
-        ]
+    ]
 
     spec_fi_menu = TerminalMenu(
 spec_fi_options, title="\n3. Do you like speculative fiction?")
@@ -132,7 +137,7 @@ spec_fi_options, title="\n3. Do you like speculative fiction?")
         "Weekly",
         "Monthly",
         "All the time!"
-        ]
+    ]
 
     sci_fi_freq_menu = TerminalMenu(
 sci_fi_freq_options, title="\n4. How often do you engage with Sci-Fi content?")
@@ -167,7 +172,7 @@ sci_fi_medium_options, title="\n5. When getting into Sci-Fi you prefer to use:")
         speculative_fiction, 
         sci_fi_freq, 
         sci_fi_medium
-        ]
+    ]
 
     clear_screen()
 
@@ -340,7 +345,8 @@ def favourite_sci_fi_by_age_group():
     df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
 
     # Group by Age Group and Sci-Fi Type
-    age_grouped = df.groupby(["Age Group", 'Sci-Fi Type']).size().unstack().fillna(0)
+    age_grouped = df.groupby(
+        ["Age Group", 'Sci-Fi Type']).size().unstack().fillna(0)
 
     print("\nFavorite Sci-Fi Type by Age Group:\n")
     print(age_grouped)
@@ -364,7 +370,7 @@ def main():
         'Sci-Fi Survey',
         'Data & Results',
         'Exit'
-        ]
+    ]
 
     # main_menu = TerminalMenu(options)
     # menu_entry_index = main_menu.show()
