@@ -1,8 +1,14 @@
 from google_sheets import sheet1
 from menu import create_menu
 from utils import clear_screen, print_section
+from colorama import Fore, Back, Style
 import time
 import datetime
+
+r = Back.RED
+k = Fore.BLACK
+b = Style.BRIGHT
+c = Style.RESET_ALL
 
 def sci_fi_survey():
     """ The Sci-Fi Survey Section"""
@@ -15,16 +21,16 @@ def sci_fi_survey():
             "\nHow old are you? \n\n (Enter a number between 7 and 99): ")
         try:
             if '.' in age_input:
-                print("Please enter a whole number without any decimals.")
+                print(f"{b+r}Please enter a whole number without any decimals.{c}")
                 continue
             age = int(age_input)
 
             if 7 <= age <= 99:
                 break
             else:
-                print("\nPlease enter a valid age between 7 and 99.")
+                print(f"{r+b}\nPlease enter a valid age between 7 and 99.{c}")
         except ValueError:
-            print("\nInvalid input: Please enter a number between 7 and 99.")
+            print(f"{r+b}\nInvalid input: Please enter number between 7 and 99.{c}")
 
     clear_screen()
 
@@ -126,7 +132,6 @@ def sci_fi_survey():
     print_section("Your Survey reponses", print_survey_data)
 
     sheet1.append_row(survey_data)
-    # store_survey_data(survey_data)
     print("\nData Stored.")
     time.sleep(1)
     from main import main

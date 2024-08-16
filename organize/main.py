@@ -16,7 +16,7 @@ def main():
         'Exit'
     ]
 
-    menu_entry_index = create_menu("\nMAIN MENU:\n", options)
+    menu_entry_index = create_menu("MAIN MENU:\n", options)
 
     if menu_entry_index == 0:
         print("Made by Valleyberg")
@@ -28,7 +28,9 @@ def main():
         data_results()
         # print("Data Results")
     elif menu_entry_index == 3:
-        print("Live Long and Prosper!")
+        print("""
+        Live Long and Prosper!
+        """)
         exit()
 
 

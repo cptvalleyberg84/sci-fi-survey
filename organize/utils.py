@@ -1,5 +1,6 @@
 import os
 import platform
+from colorama import Fore, Back, Style
 
 def clear_screen():
     """Clears the terminal screen so it's all nice and neat."""
@@ -27,10 +28,9 @@ def print_section(title, data):
 def greetings_msg():
     """Function to display the Survey Greetings"""
     greetings_txt = """
-    Greetings to the Sci-Fi Survey!
-    """
+    Greetings to the Sci-Fi Survey!"""
     print(greetings_txt)
-    print(r"""
+    print(Fore.MAGENTA, Style.BRIGHT + """
   _________      .__         __________.__
  /   _____/ ____ |__|        \_   _____|__|
  \_____  \_/ ___\|  |  ______ |    __) |  |
@@ -41,4 +41,4 @@ def greetings_msg():
   \___ \|  |  /|  | \/\   /\  ___/\___  |
  /____  |____/ |__|    \_/  \___  / ____|
       \/                        \/\/
-""")
+""" + Style.RESET_ALL)
