@@ -34,7 +34,7 @@ df = pd.DataFrame(data, columns=[
     "Sci-Fi Type",
     "Likes Speculative Fiction",
     "Engagement Frequency",
-    "Favourite Sci-Fi Medium",
+    "Fav Sci-Fi Medium",
     "Favourite Book Type"
 ])
 
@@ -191,8 +191,8 @@ def sci_fi_survey():
         "Age": survey_data[1],
         "Preferred Sci-Fi Type": survey_data[2],
         "Like Speculative Fiction": survey_data[3],
-        "Engangement Frequency": survey_data[4],
-        "Favourite Sci-Fi Medium": survey_data[5],
+        "Engagement Frequency": survey_data[4],
+        "Favorite Sci-Fi Medium": survey_data[5],
         "Favourite type of Book": survey_data[6],
         "Additional Comments": survey_data[0]
     }
@@ -353,7 +353,7 @@ def engagement_frequency_data():
     total_responses_ef = engagement_frequency_counts.sum()
     most_common_ef = engagement_frequency_counts.idxmax()
 
-    print("Engangement Frequency:\n")
+    print("Engagement Frequency:\n")
     for sci_fi_freq, count in engagement_frequency_counts.items():
         percentage_ef = (count / total_responses_ef) * 100
         print(f"{sci_fi_freq}: {count} ({percentage_ef:.2f}%)")
@@ -368,8 +368,8 @@ This captures imagination of {engagement_frequency_counts[most_common_ef]}.
     go_back_to_results_menu()
 
 def sci_fi_medium_data():
-    """Function to analize and display Favourite Sci-Fi Medium Data"""
-    sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
+    """Function to analize and display Favorite Sci-Fi Medium Data"""
+    sci_fi_medium_counts = df["Fav Sci-Fi Medium"].value_counts()
     total_responses_medium = sci_fi_medium_counts.sum()
     top_medium = sci_fi_medium_counts.idxmax()
 

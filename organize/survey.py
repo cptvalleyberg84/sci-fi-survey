@@ -123,7 +123,7 @@ def sci_fi_survey():
         "Age": survey_data[1],
         "Preferred Sci-Fi Type": survey_data[2],
         "Like Speculative Fiction": survey_data[3],
-        "Engangement Frequency": survey_data[4],
+        "Engagement Frequency": survey_data[4],
         "Favourite Sci-Fi Medium": survey_data[5],
         "Favourite type of Book": survey_data[6],
         "Additional Comments": survey_data[0]

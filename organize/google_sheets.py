@@ -23,9 +23,9 @@ df = pd.DataFrame(data, columns=[
     "Timestamp",
     "Age",
     "Sci-Fi Type",
-    "Likes Speculative Fiction",
+    "Likes Spec-Fi",
     "Engagement Frequency",
-    "Favourite Sci-Fi Medium",
+    "Fav Sci-Fi Medium",
     "Favourite Book Type"
 ])
 

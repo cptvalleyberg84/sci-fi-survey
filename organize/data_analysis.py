@@ -3,6 +3,8 @@ from utils import clear_screen, print_section, go_back_to_results_menu
 from menu import create_menu
 from tabulate import tabulate
 from colorama import Fore, Back, Style
+from age_data import age_data
+from speculative_fiction_data import speculative_fiction_data
 import pandas as pd
 import time
 import emoji
@@ -66,35 +68,36 @@ def data_results():
         main()
 
 
-def age_data():
-    """Function to analize and display Age Data"""
-    mean_age = df["Age"].mean()
-    youngest_age = df["Age"].min()
-    oldest_age = df["Age"].max()
+# def age_data():
+#     """Function to analize and display Age Data"""
+#     # Basic Age Stats
+#     mean_age = df["Age"].mean()
+#     youngest_age = df["Age"].min()
+#     oldest_age = df["Age"].max()
 
-    print_age_data = {
-        "Mean Age": int(mean_age),
-        "Youngest Participant:": int(youngest_age),
-        "Oldest Participant:": int(oldest_age)
-    }
-    print_section("Age Data Analysis", print_age_data)
+#     print_age_data = {
+#         "Mean Age": int(mean_age),
+#         "Youngest Participant:": int(youngest_age),
+#         "Oldest Participant:": int(oldest_age)
+#     }
+#     print_section("Age Data Analysis", print_age_data)
 
-    print("\nAnalysis Insight:")
-    if youngest_age < 18:
-        print(f"""
-        Young guns on board! \U0001F978
+#     print("\nAnalysis Insight:")
+#     if youngest_age < 18:
+#         print(f"""
+#         Young guns on board! \U0001F978
         
-        Our youngest participant is just {g}{b}{int(youngest_age)} years old{c}.
-        On average, participants are {g}{b}{int(mean_age)} years old{c}.
-        """)
-    if oldest_age > 60:
-        print(f"""
-        The oldest participant is {g}{b}{int(oldest_age)} years old{c}, proving 
-        that {g}sci-fi is timeless{c} and spans across generations!\U0001F920
-        """)
+#         Our youngest participant is just {g}{b}{int(youngest_age)} years old{c}.
+#         On average, participants are {g}{b}{int(mean_age)} years old{c}.
+#         """)
+#     if oldest_age > 60:
+#         print(f"""
+#         The oldest participant is {g}{b}{int(oldest_age)} years old{c}, proving 
+#         that {g}sci-fi is timeless{c} and spans across generations!\U0001F920
+#         """)
 
-    # Pause to allow the user to see the results
-    go_back_to_results_menu()
+#     # Pause to allow the user to see the results
+#     go_back_to_results_menu()
     
 
 def sci_fi_type_data():
@@ -118,37 +121,37 @@ def sci_fi_type_data():
     go_back_to_results_menu()
 
 
-def speculative_fiction_data():
-    """Function to analyze and display Speculative Fiction Data"""
-    speculative_fiction_counts = df["Likes Speculative Fiction"].value_counts()
+# def speculative_fiction_data():
+#     """Function to analyze and display Speculative Fiction Data"""
+#     speculative_fiction_counts = df["Likes Spec-Fi"].value_counts()
 
-    print("Likes Speculative Fiction:\n")
-    for speculative_fiction, count in speculative_fiction_counts.items():
-        print(f"{speculative_fiction}: {count}")
+#     print("Likes Speculative Fiction:\n")
+#     for speculative_fiction, count in speculative_fiction_counts.items():
+#         print(f"{speculative_fiction}: {count}")
 
-    # Add additional percentage to liking or disliking speculative fiction
-    total_responses_sf  = speculative_fiction_counts.sum()
+#     # Add additional percentage to liking or disliking speculative fiction
+#     total_responses_sf  = speculative_fiction_counts.sum()
 
-    yes_sf_count = speculative_fiction_counts.get("Yes", 0)
-    no_sf_count = speculative_fiction_counts.get("No", 0)
+#     yes_sf_count = speculative_fiction_counts.get("Yes", 0)
+#     no_sf_count = speculative_fiction_counts.get("No", 0)
 
-    # Calculate %%% of yes and no answers
-    yes_sf_percentage = (yes_sf_count / total_responses_sf) * 100
-    no_sf_percentage = (no_sf_count / total_responses_sf) * 100
+#     # Calculate %%% of yes and no answers
+#     yes_sf_percentage = (yes_sf_count / total_responses_sf) * 100
+#     no_sf_percentage = (no_sf_count / total_responses_sf) * 100
 
-    # Determine Majority
-    if yes_sf_count > no_sf_count:
-        print(f"""
-    {m}{b}Speculative Fiction is a Hit!{c} 
-    {g}{yes_sf_percentage:.2f}% likes speculative fiction!{c} \U0001F304
-    \U0001F496 \U0001F496 \U0001F496 	
-    """)
-    else:
-        print(f"""{g}{d}
-    Surprisingly, ({no_sf_percentage:.2f}%) don't like speculative fiction.{c} 
-    \U0001F62D \U0001F494""")
+#     # Determine Majority
+#     if yes_sf_count > no_sf_count:
+#         print(f"""
+#     {m}{b}Speculative Fiction is a Hit!{c} 
+#     {g}{yes_sf_percentage:.2f}% likes speculative fiction!{c} \U0001F304
+#     \U0001F496 \U0001F496 \U0001F496 	
+#     """)
+#     else:
+#         print(f"""{g}{d}
+#     Surprisingly, ({no_sf_percentage:.2f}%) don't like speculative fiction.{c} 
+#     \U0001F62D \U0001F494""")
 
-    go_back_to_results_menu()
+#     go_back_to_results_menu()
 
 
 def engagement_frequency_data():
@@ -157,7 +160,7 @@ def engagement_frequency_data():
     total_responses_ef = engagement_frequency_counts.sum()
     common_ef = engagement_frequency_counts.idxmax()
 
-    print("Engangement Frequency:\n")
+    print("Engagement Frequency:\n")
     for sci_fi_freq, count in engagement_frequency_counts.items():
         percentage_ef = (count / total_responses_ef) * 100
         print(f"{sci_fi_freq}: {count} ({percentage_ef:.2f}%)")
@@ -175,8 +178,8 @@ f'  \n  \U0001F44D \U0001FAF5'
     go_back_to_results_menu()
 
 def sci_fi_medium_data():
-    """Function to analize and display Favourite Sci-Fi Medium Data"""
-    sci_fi_medium_counts = df["Favourite Sci-Fi Medium"].value_counts()
+    """Function to analize and display Favorite Sci-Fi Medium Data"""
+    sci_fi_medium_counts = df["Fav Sci-Fi Medium"].value_counts()
     total_responses_medium = sci_fi_medium_counts.sum()
     top_medium = sci_fi_medium_counts.idxmax()
 
@@ -212,74 +215,99 @@ f'{Style.RESET_ALL}')
     go_back_to_results_menu()
 
 
-def engagement_vs_speculative_fiction():
-    """Analize/display how engagement frequency 
-    correlates with liking speculative fiction"""
-    engagement_vs_sf = pd.crosstab(
-        df['Engagement Frequency'], df['Likes Speculative Fiction'])
+# def engagement_vs_speculative_fiction():
+#     """Analize/display how engagement frequency 
+#     correlates with liking speculative fiction"""
+#     engagement_vs_sf = pd.crosstab(
+#         df['Engagement Frequency'], df['Likes Spec-Fi'])
 
-    print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
-    print(engagement_vs_sf)
+#     print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
+#     print(engagement_vs_sf)
 
-    if engagement_vs_sf.shape[1] == 2:
-        if engagement_vs_sf["Yes"].sum() > engagement_vs_sf["No"].sum():
-            print(f"""
-        It seems that those who frequently engage with sci-fi are
-        more likely to enjoy speculative fiction - no surprise here! 
-        {Fore.GREEN+b}
-        Deeper engagement often means love for all things speculative!
-        {Style.RESET_ALL}    \U0001F93C
-        """)
-        else:
-            print(f"""{g+d}
-        Interestingly, frequent engagement with sci-fi does not
-        necessarily correlate with a liking for speculative fiction.
-            {c}""")
-    else:
-        print(f"{g+d}Data is cloudy. Get back later to see if this changed.{c}")
+#     if engagement_vs_sf.shape[1] == 2:
+#         if engagement_vs_sf["Yes"].sum() > engagement_vs_sf["No"].sum():
+#             print(f"""
+#         It seems that those who frequently engage with sci-fi are
+#         more likely to enjoy speculative fiction - no surprise here! 
+#         {Fore.GREEN+b}
+#         Deeper engagement often means love for all things speculative!
+#         {Style.RESET_ALL}    \U0001F93C
+#         """)
+#         else:
+#             print(f"""{g+d}
+#         Interestingly, frequent engagement with sci-fi does not
+#         necessarily correlate with a liking for speculative fiction.
+#             {c}""")
+#     else:
+#         print(f"{g+d}Data is cloudy. Get back later to see if this changed.{c}")
 
-    go_back_to_results_menu()
+#     go_back_to_results_menu()
 
-def favourite_sci_fi_by_age_group():
-    """Function to analize and display Favourite Sci-Fi type by Age Group"""
-    #Define Groups
-    bins = [7, 18, 30, 45, 60, 100]
-    groups = ['7-18','19-30','31-45','46-60','61+']
-    df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
+# def favourite_sci_fi_by_age_group():
+#     """Function to analize and display Favourite Sci-Fi type by Age Group"""
+#     #Define Groups
+#     bins = [7, 18, 30, 45, 60, 100]
+#     groups = ['7-18','19-30','31-45','46-60','61+']
+#     df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=groups, right=False)
 
-    # Group by Age Group and Sci-Fi Type
-    age_grouped = df.groupby(
-        ["Age Group", 'Sci-Fi Type'], observed=False).size().unstack().fillna(0)
+#     # Group by Age Group and Sci-Fi Type
+#     age_grouped = df.groupby(
+#         ["Age Group", 'Sci-Fi Type'], observed=False).size().unstack().fillna(0)
 
-    print("\nFavorite Sci-Fi Type by Age Group: \U0001F938\n")
-    # print(age_grouped)
-    print(tabulate(age_grouped, headers='keys', tablefmt='fancy_grid'))
+#     print("\nFavorite Sci-Fi Type by Age Group: \U0001F938\n")
+#     # print(age_grouped)
+#     print(tabulate(age_grouped, headers='keys', tablefmt='fancy_grid'))
 
-    for age_group in groups:
-        if age_group in age_grouped.index:
-            most_popular_genre = age_grouped.loc[age_group].idxmax()
-            most_pupular_count = age_grouped.loc[age_group].max()
-            total_in_group = age_grouped.loc[age_group].sum()
-            percentage = (most_pupular_count / total_in_group) * 100
+#     for age_group in groups:
+#         if age_group in age_grouped.index:
+#             most_popular_genre = age_grouped.loc[age_group].idxmax()
+#             most_pupular_count = age_grouped.loc[age_group].max()
+#             total_in_group = age_grouped.loc[age_group].sum()
+#             percentage = (most_pupular_count / total_in_group) * 100
     
-            print(
-f"For the {Fore.GREEN}{age_group}{Style.RESET_ALL} age group," 
-f"'{Fore.GREEN}{most_popular_genre}{Style.RESET_ALL}' is the most popular genre"
-f" \nwith {Fore.GREEN}{most_pupular_count}{Style.RESET_ALL} votes," 
-f" making up {Fore.GREEN}{percentage:.2f}%{Style.RESET_ALL} of their choices.\n"
-            )
-        else:
-            print(f"""
-        \U000026A0 No data available for the {age_group} age group.
-            """)
+#             print(
+# f"For the {Fore.GREEN}{age_group}{Style.RESET_ALL} age group," 
+# f"'{Fore.GREEN}{most_popular_genre}{Style.RESET_ALL}' is the most popular genre"
+# f" \nwith {Fore.GREEN}{most_pupular_count}{Style.RESET_ALL} votes," 
+# f" making up {Fore.GREEN}{percentage:.2f}%{Style.RESET_ALL} of their choices.\n"
+#             )
+#         else:
+#             print(f"""
+#         \U000026A0 No data available for the {age_group} age group.
+#             """)
 
-    print(f"""{b+g}
-    It appears that different age groups 
-    gravitate toward different sci-fi genres {c}\U0001F913
+#     print(f"""{b+g}
+#     It appears that different age groups 
+#     gravitate toward different sci-fi genres {c}\U0001F913
 
-    {g}You can scroll up to view the full data.{c}""")
+#     {g}You can scroll up to view the full data.{c}""")
+
+#     go_back_to_results_menu()
+
+
+def mega_results():
+    """Analize/Display Mega Results
+    Mega Results represent deeper insights of Sci-Fi survey"""
+    sf_sf_type = pd.crosstab(df['Likes Spec-Fi'], df['Sci-Fi Type'])
+    print(f"""
+    {sf_sf_type}
+    """)
+
+    med_eng_f = pd.crosstab(df['Fav Sci-Fi Medium'], df['Engagement Frequency'])
+    print(f"""
+    {med_eng_f}
+    """)
+
+    age_medium_cross = pd.crosstab(df['Age'], df['Fav Sci-Fi Medium'])
+    print(f"""
+    {age_medium_cross}
+    """)
+
+    age_medium = df.groupby('Age')['Fav Sci-Fi Medium'].value_counts(normalize=True)
+    print(f"""
+    {age_medium}
+    """)
+
+
 
     go_back_to_results_menu()
-
-
-# def mega_results():
