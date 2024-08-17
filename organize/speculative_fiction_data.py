@@ -48,8 +48,9 @@ def speculative_fiction_data():
     engagement_vs_sf = pd.crosstab(
         df['Engagement Frequency'], df['Likes Spec-Fi'])
 
-    print('\nEngagement Frequency vs Liking Speculative Fiction:\n')
-    print(engagement_vs_sf)
+    print('\nEngagement Frequency vs Liking Speculative Fiction:')
+    print(tabulate(engagement_vs_sf, headers='keys', tablefmt='fancy_grid'))
+
 
     if engagement_vs_sf.shape[1] == 2:
         if engagement_vs_sf["Yes"].sum() > engagement_vs_sf["No"].sum():
@@ -67,9 +68,5 @@ def speculative_fiction_data():
             {c}""")
     else:
         print(f"{g+d}Data is cloudy. Get back later to see if this changed.{c}")
-
-    
-
-
 
     go_back_to_results_menu()
