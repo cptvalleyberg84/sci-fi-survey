@@ -58,7 +58,7 @@ def data_results():
         print(
 "Stats are awesome! You're now part of the journey! Come again \U0001F604")
         time.sleep(1)
-        from main import main
+        from run import main
         main()
   
 

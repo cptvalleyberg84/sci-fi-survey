@@ -134,5 +134,5 @@ def sci_fi_survey():
     sheet1.append_row(survey_data)
     print("\nData Stored.")
     time.sleep(1)
-    from main import main
+    from run import main
     main()
