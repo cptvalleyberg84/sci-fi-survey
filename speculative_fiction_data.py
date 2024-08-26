@@ -1,17 +1,18 @@
-from google_sheets import df
-from utils import clear_screen, print_section, go_back_to_results_menu
-from menu import create_menu
-from tabulate import tabulate
-from colorama import Fore, Back, Style
-import pandas as pd
 import time
 import emoji
+import pandas as pd
+from google_sheets import df
+from tabulate import tabulate
+from colorama import Fore, Back, Style
+from utils import clear_screen, print_section, go_back_to_results_menu
+from menu import create_menu
 
-g = Fore.GREEN 
+g = Fore.GREEN
 b = Style.BRIGHT
 c = Style.RESET_ALL
 d = Style.DIM
 m = Back.MAGENTA
+
 
 def speculative_fiction_data():
     """Function to analyze and display Speculative Fiction Data"""
@@ -22,7 +23,7 @@ def speculative_fiction_data():
         print(f"{speculative_fiction}: {count}")
 
     # Add additional percentage to liking or disliking speculative fiction
-    total_responses_sf  = speculative_fiction_counts.sum()
+    total_responses_sf = speculative_fiction_counts.sum()
 
     yes_sf_count = speculative_fiction_counts.get("Yes", 0)
     no_sf_count = speculative_fiction_counts.get("No", 0)
@@ -34,16 +35,16 @@ def speculative_fiction_data():
     # Determine Majority
     if yes_sf_count > no_sf_count:
         print(f"""
-    {m}{b}Speculative Fiction is a Hit!{c} 
+    {m}{b}Speculative Fiction is a Hit!{c}
     {g}{yes_sf_percentage:.2f}% likes speculative fiction!{c} \U0001F304
-    \U0001F496 \U0001F496 \U0001F496 	
+    \U0001F496 \U0001F496 \U0001F496
     """)
     else:
         print(f"""{g}{d}
-    Surprisingly, ({no_sf_percentage:.2f}%) don't like speculative fiction.{c} 
+    Surprisingly, ({no_sf_percentage:.2f}%) don't like speculative fiction.{c}
     \U0001F62D \U0001F494""")
 
-    """Analize/display how engagement frequency 
+    """Analize/display how engagement frequency
     correlates with liking speculative fiction"""
     engagement_vs_sf = pd.crosstab(
         df['Engagement Frequency'], df['Likes Spec-Fi'])
@@ -51,12 +52,11 @@ def speculative_fiction_data():
     print('\nEngagement Frequency vs Liking Speculative Fiction:')
     print(tabulate(engagement_vs_sf, headers='keys', tablefmt='fancy_grid'))
 
-
     if engagement_vs_sf.shape[1] == 2:
         if engagement_vs_sf["Yes"].sum() > engagement_vs_sf["No"].sum():
             print(f"""
         It seems that those who frequently engage with sci-fi are
-        more likely to enjoy speculative fiction - no surprise here! 
+        more likely to enjoy speculative fiction - no surprise here!
         {Fore.GREEN+b}
         Deeper engagement often means love for all things speculative!
         {Style.RESET_ALL}    \U0001F93C
@@ -67,6 +67,8 @@ def speculative_fiction_data():
         necessarily correlate with a liking for speculative fiction.
             {c}""")
     else:
-        print(f"{g+d}Data is cloudy. Get back later to see if this changed.{c}")
+        print(
+            f"{g+d}Data is cloudy. Get back later to see if this changed.{c}"
+        )
 
     go_back_to_results_menu()

@@ -1,14 +1,15 @@
-from google_sheets import sheet1
-from menu import create_menu
-from utils import clear_screen, print_section
-from colorama import Fore, Back, Style
 import time
 import datetime
+from google_sheets import sheet1
+from colorama import Fore, Back, Style
+from menu import create_menu
+from utils import clear_screen, print_section
 
 r = Back.RED
 k = Fore.BLACK
 b = Style.BRIGHT
 c = Style.RESET_ALL
+
 
 def sci_fi_survey():
     """ The Sci-Fi Survey Section"""
@@ -21,7 +22,10 @@ def sci_fi_survey():
             "\nHow old are you? \n\n (Enter a number between 7 and 99): ")
         try:
             if '.' in age_input:
-                print(f"{b+r}Please enter a whole number without any decimals.{c}")
+                print(
+                    f"{b+r}Please enter a whole number"
+                    f" without any decimals.{c}"
+                )
                 continue
             age = int(age_input)
 
@@ -30,7 +34,10 @@ def sci_fi_survey():
             else:
                 print(f"{r+b}\nPlease enter a valid age between 7 and 99.{c}")
         except ValueError:
-            print(f"{r+b}\nInvalid input: Please enter number between 7 and 99.{c}")
+            print(
+                f"{r+b}\nInvalid input: "
+                f"Please enter number between 7 and 99.{c}"
+            )
 
     clear_screen()
 
@@ -56,7 +63,8 @@ def sci_fi_survey():
     ]
 
     spec_fi_choice_index = create_menu(
-        "\n3. Do you like speculative fiction?", spec_fi_options)
+        "\n3. Do you like speculative fiction?", spec_fi_options
+    )
     speculative_fiction = spec_fi_options[spec_fi_choice_index]
 
     clear_screen()
@@ -70,7 +78,9 @@ def sci_fi_survey():
     ]
 
     sci_fi_freq_choice_index = create_menu(
-    "\n4. How often do you engage with Sci-Fi content?", sci_fi_freq_options)
+        "\n4. How often do you engage with Sci-Fi content?",
+        sci_fi_freq_options
+    )
     sci_fi_freq = sci_fi_freq_options[sci_fi_freq_choice_index]
 
     clear_screen()
@@ -84,7 +94,9 @@ def sci_fi_survey():
     ]
 
     sci_fi_medium_choice_index = create_menu(
-    "\n5. When getting into Sci-Fi you prefer to use:", sci_fi_medium_options)
+        "\n5. When getting into Sci-Fi you prefer to use:",
+        sci_fi_medium_options
+    )
     sci_fi_medium = sci_fi_medium_options[sci_fi_medium_choice_index]
 
     clear_screen()
@@ -98,7 +110,9 @@ def sci_fi_survey():
     ]
 
     books_question_choice_index = create_menu(
-    "\n6. Which type of books do you like the most?", books_question_options)
+        "\n6. Which type of books do you like the most?",
+        books_question_options
+    )
     book_question = books_question_options[books_question_choice_index]
 
     clear_screen()
@@ -108,11 +122,11 @@ def sci_fi_survey():
 
     # Prepare the data to be stored
     survey_data = [
-        timestamp, 
-        age, 
-        sci_fi_type, 
-        speculative_fiction, 
-        sci_fi_freq, 
+        timestamp,
+        age,
+        sci_fi_type,
+        speculative_fiction,
+        sci_fi_freq,
         sci_fi_medium,
         book_question
     ]

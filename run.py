@@ -1,8 +1,9 @@
+import time
 from menu import create_menu
 from survey import sci_fi_survey
 from data_analysis import data_results
 from utils import clear_screen, greetings_msg
-import time
+
 
 def main():
     """Function to display greetings and the main menu"""

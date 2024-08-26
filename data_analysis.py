@@ -1,19 +1,20 @@
+import time
+import emoji
+import pandas as pd
 from google_sheets import df
-from utils import clear_screen, print_section, go_back_to_results_menu
-from menu import create_menu
 from tabulate import tabulate
 from colorama import Fore, Back, Style
 from age_data import age_data
 from speculative_fiction_data import speculative_fiction_data
-import pandas as pd
-import time
-import emoji
+from utils import clear_screen, print_section, go_back_to_results_menu
+from menu import create_menu
 
-g = Fore.GREEN 
+g = Fore.GREEN
 b = Style.BRIGHT
 c = Style.RESET_ALL
 d = Style.DIM
 m = Back.MAGENTA
+
 
 def data_results():
     """Display the Data Results Menu"""
@@ -32,12 +33,11 @@ def data_results():
         "4. Sci-Fi Frequention",
         "5. Sci-Fi Medium Style",
         "6. Favourite Book Type",
-        "7. MEGA RESULTS",
-        "Main Menu"    
+        "Main Menu"
     ]
 
     data_results_index = create_menu(
-        "\nWhich stats would you wish to reveal?\n", 
+        "\nWhich stats would you wish to reveal?\n",
         data_results_menu_options)
 
     if data_results_index == 0:
@@ -53,14 +53,13 @@ def data_results():
     elif data_results_index == 5:
         favourite_book_type()
     elif data_results_index == 6:
-        mega_results()
-    elif data_results_index == 7:
         print(
-"Stats are awesome! You're now part of the journey! Come again \U0001F604")
+            f"Stats are awesome! You're now part of the journey!"
+            f" Come again \U0001F604")
         time.sleep(1)
         from run import main
         main()
-  
+
 
 def sci_fi_type_data():
     """Function to analyze and display Sci-Fi Type Data"""
@@ -75,12 +74,17 @@ def sci_fi_type_data():
     most_popular_sf = sci_fi_counts.idxmax()
 
     print(f"""
-    The most popular Sci-Fi type is {g}{most_popular_sf}{c} \U0001F680 
-    Leading the charge with {g}{b}{sci_fi_counts[most_popular_sf]} responses{c}. 
-    {g}{(sci_fi_counts[most_popular_sf] / total_responses_sf_td) * 100:.2f}%
-    {c}""")
+        The most popular Sci-Fi type is {g}{most_popular_sf}{c} \U0001F680
+        Leading the charge with {g}{b}{
+            sci_fi_counts[most_popular_sf]
+            } responses{c}.
+        {g}{(
+            sci_fi_counts[most_popular_sf] / total_responses_sf_td
+            ) * 100:.2f}%{c}
+    """)
 
     go_back_to_results_menu()
+
 
 def engagement_frequency_data():
     """Function to analize and display Engagement Frequency Data"""
@@ -93,17 +97,19 @@ def engagement_frequency_data():
         percentage_ef = (count / total_responses_ef) * 100
         print(f"{sci_fi_freq}: {count} ({percentage_ef:.2f}%)")
 
-
     print(
-        f'\nIt seems that the most common engagement' 
+        f'\nIt seems that the most common engagement'
         f'frequency is {g+b}{common_ef}{c}.\n'
-        f'This captures imagination of' 
+        f'This captures imagination of'
         f" {g}{engagement_frequency_counts[common_ef]}{b}\nThat's "
-f'{(engagement_frequency_counts[common_ef] / total_responses_ef)*100:.2f}%!!{c}'
-f'  \n  \U0001F44D \U0001FAF5'
+        f'{(
+            engagement_frequency_counts[common_ef] / total_responses_ef
+            ) * 100:.2f}%!!{c} '
+        f'  \n  \U0001F44D \U0001FAF5'
     )
 
     go_back_to_results_menu()
+
 
 def sci_fi_medium_data():
     """Function to analize and display Favorite Sci-Fi Medium Data"""
@@ -115,13 +121,17 @@ def sci_fi_medium_data():
         percentage_medium = (count / total_responses_medium) * 100
         print(f"{sci_fi_medium}: {count} ({percentage_medium:.2f}%)")
 
-    print(f'''
-    \tThe preferred medium for sci-fi adventures is {g+b}{top_medium}{c}!
-    \tWith {g+b}{sci_fi_medium_counts[top_medium]} votes{c}. \U0001F4DA {g+b}
-    \t{(sci_fi_medium_counts[top_medium] / total_responses_medium) * 100:.2f}%!
-    {c}''')
+    print(
+        f'\n\tThe preferred medium for sci-fi adventures is '
+        f'{g + b}{top_medium}{c}'
+        f'!\n\tWith {g + b}{sci_fi_medium_counts[top_medium]} votes{c}.'
+        f' \U0001F4DA {g + b}'
+        f'\n\t{(
+            sci_fi_medium_counts[top_medium] / total_responses_medium
+        ) * 100:.2f}%!{c}')
 
     go_back_to_results_menu()
+
 
 def favourite_book_type():
     """Analize and display fav book type data"""
@@ -135,25 +145,11 @@ def favourite_book_type():
         print(f"{book_question}: {count} ({percentage_books:.2f}%)")
 
     print(
-f'\nThe preferred book type is "{Fore.GREEN}{type_book}"{Style.RESET_ALL}! '
-f'With {Fore.GREEN}{fav_book_type_counts[type_book]} votes !! \U0001F4D6 '
-f'({(fav_book_type_counts[type_book] / total_res_books)* 100:.2f}%)'
-f'{Style.RESET_ALL}')
-
-    go_back_to_results_menu()
-
-
-def mega_results():
-    """Analize/Display Mega Results
-    Mega Results represent deeper insights of Sci-Fi survey"""
-    sf_sf_type = pd.crosstab(df['Likes Spec-Fi'], df['Sci-Fi Type'])
-    print(f"""
-    {sf_sf_type}
-    """)
-
-    med_eng_f = pd.crosstab(df['Fav Sci-Fi Medium'], df['Engagement Frequency'])
-    print(f"""
-    {med_eng_f}
-    """)
+        f'\nThe preferred book type is "{Fore.GREEN}{type_book}"'
+        f'{Style.RESET_ALL}! '
+        f'With {Fore.GREEN}{fav_book_type_counts[type_book]}'
+        f' votes !! \U0001F4D6 '
+        f'({(fav_book_type_counts[type_book] / total_res_books)* 100:.2f}%)'
+        f'{Style.RESET_ALL}')
 
     go_back_to_results_menu()

@@ -2,6 +2,7 @@ import os
 import platform
 from colorama import Fore, Back, Style
 
+
 def clear_screen():
     """Clears the terminal screen so it's all nice and neat."""
     if platform.system() == "Windows":
@@ -15,7 +16,6 @@ def go_back_to_results_menu():
     input("\nPress the ENTER key to return to the menu...")
     from data_analysis import data_results
     data_results()
-
 
 
 def print_section(title, data):
