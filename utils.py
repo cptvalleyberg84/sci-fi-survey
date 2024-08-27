@@ -30,7 +30,7 @@ def greetings_msg():
     greetings_txt = """
     Greetings to the Sci-Fi Survey!"""
     print(greetings_txt)
-    print(Fore.MAGENTA, Style.BRIGHT + """
+    print(Fore.MAGENTA, Style.BRIGHT + r"""
   _________      .__         __________.__
  /   _____/ ____ |__|        \_   _____|__|
  \_____  \_/ ___\|  |  ______ |    __) |  |
