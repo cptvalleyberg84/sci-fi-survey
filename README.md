@@ -27,7 +27,9 @@ Jump in and check where your sci-fi interests lay in our little sci-fi society. 
     - Correlation between engagement frequency and insterest in speculative ficiton
     - Sci-fi genre preferences across different age groups
 
-    ![alt text](assets/documentation/image-5.png)
+    ![alt text](assets/documentation/image7.png)
+
+
 
 - About Section - Displays information about the applications purpose and instructions.
 
@@ -78,6 +80,18 @@ rsa==4.9
 simple-term-menu==1.6.4
 tabulate==0.9.0
 tzdata==2024.1
+
+# Code
+The code was written in Python 3.12.2(main, Aug 6 2024) and has been organized into seperate files according to the function contirbuting to improved functionality and creating ease of access and editing:
+1. run.py = files acts like the entry point file for the Sci-Fi Survey application. It displays the greetings and the main menu.
+2. menu.py = is a helper file helping preserve the DRY rules with providing the menu creator code for various functions and with the use of simple_term_menu
+3. about.py = is the file providing information about the applciation and simple instructions how to use the program.
+4. survey.py = this file contains the entire survey content, including all the questions and answers created with the create_menu function. It also is programmed to store the data in the google sheet file.
+5. data_analysis.py = this file contains data analysis information. Creates the menu for the sci-fi data and contains most of the functionalities that communicate with the google sheet and analyse the data - but not all functions, which because of their size were transferred to following files for ease of access and better organization of the program. These files are:
+    - age_data.py - this is rather large file containing all the age related calculations, crossing age with all the other data available from the survey. The results are displaying and for the ease of access results pause after each section, so it is easier to understand that it's possible to scroll up in this section for various results.
+    - speculative_fiction_data.py = these interesting data also contain few crosssection results and can be scrolled up to read in full.
+6. google_sheets.py = this file contains all the information related to the communication with the google sheets, including credential, and the gspread and pandas integration. 
+7. utils.py = this file contains helper functions necessary for optimal work of the code. Functions like clear_screen, and go_back_to_results_menu are used to improve readability and functionality of the application. The print_section function helps displaying the survey questions and possible answers. This file also contains our beautiful ASCII art greetings_msg which serves the purpose of the Sci-Fi survey Logo. 
 
 # Manual Testing
 
@@ -148,7 +162,7 @@ Follow these steps to deploy the Sci-Fi Survey on your local machine.
 
 ![alt text](assets/documentation/image-1.png)
 
-- The app works correctly and displays perfectly fine in other browsers.
+- In firefox it sometimes display only half of the emojis (left half it seems)
 
 # Resources
 
@@ -187,5 +201,7 @@ Thank you to the Code Institute Python Essentials course.
 I'd love to say thank you to the CI Tutor team for the help and support.
 
 Big **THANK YOU** to my amazing Mentor Juliia_Konn for guidance and additional tips and tricks!
+
+![alt text](assets/documentation/image-5.png)
 
 ###### End of Project
