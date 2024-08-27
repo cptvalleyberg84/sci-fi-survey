@@ -4,21 +4,20 @@ The Sci-Fi Survey is a Python-based aplpication designed to gather and analyze p
 The app can be accessed here:
 [Sci-Fi Survey](https://sci-fi-survey-f66a7ae41cb5.herokuapp.com/)
 
-![alt text](image.png)
+![alt text](assets/documentation/image.png)
 
 # Intro
 
-Jump in and check where your sci-fi interests lay in our little sci-fi society.
-The app is designed for the sci-fi fans of ages between 7 and 99 as target audience.
+Jump in and check where your sci-fi interests lay in our little sci-fi society. The data is valuable and interesting because of my love for sci-fi I'd want to know how people interact with sci-fi. The app is designed for the sci-fi fans of ages between 7 and 99 as target audience.
 
 # Features
  - Interactive Survey - Users are guided through a series of questions about their age, favorite sci-fi genres and engagement habits using a terminal based interface. The survey also includes optios for users to specify their preferences for speculative ficiton, sci-fi mediums and book types. During the age questions data is validated and if User provides not number between 7 to 99 appropriate error displays prompting user to enter valid input data.
 
-![alt text](image-3.png)
+![alt text](assets/documentation/image-3.png)
 
  - Data Storage - Survey responses are stored in a Google Sheet for easy management and anlysis. This integration allows for seamless data collection and ensures that all user inputs are recorded accurately.
 
-![alt text](image-4.png)
+![alt text](assets/documentation/image-4.png)
 
  - Data Analysis - The application processes the collected data using Pandas, enabling detailed analysis and visualization. Users can explore varous insights such as:
     - Age demographics of participants
@@ -28,11 +27,11 @@ The app is designed for the sci-fi fans of ages between 7 and 99 as target audie
     - Correlation between engagement frequency and insterest in speculative ficiton
     - Sci-fi genre preferences across different age groups
 
-    ![alt text](image-5.png)
+    ![alt text](assets/documentation/image-5.png)
 
 - About Section - Displays information about the applications purpose and instructions.
 
-![alt text](image-2.png)
+![alt text](assets/documentation/image-2.png)
 
 - User-Friendly Interface - The terminal interface includes dynamic menus and color-coded outputs to enhance the user experience. The use of the 'simple_term_menu' and 'colorama' libraries ensures that navigation is intuitive and visually appealing.
 
@@ -82,7 +81,7 @@ tzdata==2024.1
 
 # Manual Testing
 
-The app deployed with Heroku has gone through manual testing via Chrome, Edge, Firefox and Opera. There have been spotted bugs reported in unresolved bugs sections. Besides that, app works flawlessly in all environments.
+The app deployed with Heroku has gone through manual testing via Chrome, Edge, Firefox and Opera. There have been spotted bugs reported in unresolved bugs sections. Besides that, app works flawlessly in all environments. Heroku Deployment was sent to my friends and family who participated in the survey and have given feedback on user experience and did not report any bugs.
 
 | **Test Case** | **Actions** | **Expected Results** | **Pass** |
 | --- | --- | --- | --- |
@@ -141,12 +140,13 @@ Follow these steps to deploy the Sci-Fi Survey on your local machine.
 - Bugs during splitting the code functions into separated files mostly due to a circular import. Solved after learning that we can call importing functions from different files within the function that needs it.
 - Multiple bugs during learning how to print the ASCII art for the Logo of the application. Solved with learning specific Print f string method.
 - Multiple issues with formating the functions of Data Results section including understanding how many calculations is possible to create to print inside the data section, understanding we can create the create_menu function and in similar way use the code according to the DRY philosophy. 
+- CI Python Linter reported 'W605 invalid escape sequence' in the file utils.py for the whole ASCII Art generated SCI-FI Survey Purple HEADING-Logo. Solved by changing the f string print method to r string print method.
+- DataFrame.value_counts could not pass without triggering the warning which after googling was solved with adding observed=False to the code line and removing trigger to this error.
 
 ## Unresolved Bugs
-- CI Python Linter reports 'W605 invalid escape sequence' in the file utils.py for the whole ASCII Art generated SCI-FI Survey Purple HEADING-Logo.
 - Sometimes in Chrome or Edge browser the LOGO in Heroku may display incorrectly as in the picture:
 
-![alt text](image-1.png)
+![alt text](assets/documentation/image-1.png)
 
 - The app works correctly and displays perfectly fine in other browsers.
 
@@ -159,16 +159,26 @@ Follow these steps to deploy the Sci-Fi Survey on your local machine.
 - [pandas.DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)
 - [pandas.to_numeric](https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html#pandas-to-numeric)
 - [pandas.Series.value_counts](https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html)
+- [pandas.DataFrame.idxmax](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.idxmax.html)
 - [Python | pandas.to_numeric method](https://www.geeksforgeeks.org/python-pandas-to_numeric-method/)
 - [Platform Module in Python](https://www.geeksforgeeks.org/platform-module-in-python/)
+- [tabulate 0.9.0](https://pypi.org/project/tabulate/)
+- [colorama 0.4.6](https://pypi.org/project/colorama/)
+- [Print Colored Text in Python](https://medium.com/ai-does-it-better/print-colored-text-in-python-enhance-terminal-output-b90aede058c8)
+- [emoji 2.12.1](https://pypi.org/project/emoji/)
+- [Full Emoji List, v15.1](https://unicode.org/emoji/charts/full-emoji-list.html)
+- [pandas.crosstab](https://pandas.pydata.org/docs/reference/api/pandas.crosstab.html)
+- [Python program to print Emojis](https://www.geeksforgeeks.org/python-program-to-print-emojis/)
 - [How to clear screen in python?](https://www.geeksforgeeks.org/clear-screen-python/)
 - [OS Module in Python with Examples](https://www.geeksforgeeks.org/os-module-python-examples/)
 - [Make Python Wait For a Pressed Key](https://www.geeksforgeeks.org/make-python-wait-for-a-pressed-key/)
 - [How do I make a time delay?](https://stackoverflow.com/questions/510348/how-do-i-make-a-time-delay)
 - [The Python Requirements File and How to Create it](https://learnpython.com/blog/python-requirements-file/)
+- [Python ValueError Exception Handling Examples](https://www.digitalocean.com/community/tutorials/python-valueerror-exception-handling-examples)
 
 - [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=display&h=3&v=2&f=Graffiti&t=Sci-Fi%0A%20survey)
 - [Print full ascii art](https://stackoverflow.com/questions/23623288/print-full-ascii-art)
+- [BUG: Un-actionable FutureWarning in DataFrame.value_counts with categorical column(s)](https://github.com/pandas-dev/pandas/issues/54775)
 
 # Credits
 
