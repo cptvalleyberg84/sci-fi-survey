@@ -46,6 +46,7 @@ def speculative_fiction_data():
 
     """Analize/display how engagement frequency
     correlates with liking speculative fiction"""
+
     engagement_vs_sf = pd.crosstab(
         df['Engagement Frequency'], df['Likes Spec-Fi'])
 

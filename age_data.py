@@ -43,6 +43,7 @@ def age_data():
     that {g}sci-fi is timeless{c} and spans across generations!\U0001F920
         """)
     time.sleep(1)
+
     # Define Groups
     bins = [7, 18, 30, 45, 60, 100]
     groups = ['7-18', '19-30', '31-45', '46-60', '61+']
@@ -78,6 +79,7 @@ def age_data():
         \U000026A0 No data available for the {age_group} age group.
             """)
     time.sleep(1)
+
     # Age Vs Speculative Fiction
     print(
         f'\n{cy}{b}Speculative Fiction Popularity by Age Group:{c}\U0001F52E'
@@ -103,6 +105,7 @@ def age_data():
         \U000026A0 No data available for the {age_group} age group.
             """)
     time.sleep(1)
+
     # Age Vs Enagagement Frequency
     print(f'\n{cy}{b}Engagement Frequency by Age Group{c} \U0001F4DA\n')
     eng_grpd = df.groupby(
@@ -129,6 +132,7 @@ def age_data():
         \U000026A0 No data available for the {age_group} age group.
             """)
     time.sleep(1)
+
     # Age Vs Medium Preference
     print(f'\n{cy}{b}Favorite Sci-Fi Medium by Age Group:{c} \U0001F4FA\n')
     medium_grpd = df.groupby(
@@ -157,6 +161,7 @@ def age_data():
             """)
     time.sleep(1)
     # Summary Small and Info to Scroll Up
+
     print(f"""{b+g}
     It appears that different age groups
     gravitate toward different sci-fi genres {c}\U0001F913

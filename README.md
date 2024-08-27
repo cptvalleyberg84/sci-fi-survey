@@ -12,6 +12,11 @@
 
 # Bugs / Unresolved Bugs
 
+
+
+## Unresolved Bugs
+CI Python Linter reports 'W605 invalid escape sequence' in the file utils.py for the whole ASCII Art generated SCI-FI Survey Purple HEADING-Logo
+
 # Resources
 
 - [simple-term-menu 1.6.4](https://pypi.org/project/simple-term-menu/)

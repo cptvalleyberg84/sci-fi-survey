@@ -18,7 +18,7 @@ m = Back.MAGENTA
 
 def data_results():
     """Display the Data Results Menu"""
-    # print(df.head())
+
     clear_screen()
 
     data_greet_txt = """
@@ -97,16 +97,16 @@ def engagement_frequency_data():
         percentage_ef = (count / total_responses_ef) * 100
         print(f"{sci_fi_freq}: {count} ({percentage_ef:.2f}%)")
 
-    print(
-        f'\nIt seems that the most common engagement'
-        f'frequency is {g+b}{common_ef}{c}.\n'
-        f'This captures imagination of'
-        f" {g}{engagement_frequency_counts[common_ef]}{b}\nThat's "
-        f'{(
+    print(f"""
+        \n\tIt seems that the most common engagement
+        frequency is {g+b}{common_ef}{c}.\n
+        This captures imagination of
+        {g}{engagement_frequency_counts[common_ef]}{b}
+        \n\tThat's {(
             engagement_frequency_counts[common_ef] / total_responses_ef
-            ) * 100:.2f}%!!{c} '
-        f'  \n  \U0001F44D \U0001FAF5'
-    )
+        ) * 100:.2f} % !!{c}
+        \n\t  \U0001F44D \U0001FAF5
+    """)
 
     go_back_to_results_menu()
 
@@ -121,14 +121,15 @@ def sci_fi_medium_data():
         percentage_medium = (count / total_responses_medium) * 100
         print(f"{sci_fi_medium}: {count} ({percentage_medium:.2f}%)")
 
-    print(
-        f'\n\tThe preferred medium for sci-fi adventures is '
-        f'{g + b}{top_medium}{c}'
-        f'!\n\tWith {g + b}{sci_fi_medium_counts[top_medium]} votes{c}.'
-        f' \U0001F4DA {g + b}'
-        f'\n\t{(
+    print(f'''
+        \n\tThe preferred medium for sci-fi adventures are:
+        \n\t{g + b}{top_medium}{c}!
+        \n\tWith {g + b}{sci_fi_medium_counts[top_medium]} votes{c}.
+        \U0001F4DA {g + b}
+        \n\t{(
             sci_fi_medium_counts[top_medium] / total_responses_medium
-        ) * 100:.2f}%!{c}')
+        ) * 100:.2f} % !{c}
+    ''')
 
     go_back_to_results_menu()
 
