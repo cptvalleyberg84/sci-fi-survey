@@ -1,8 +1,7 @@
 # Sci-Fi Survey!
 The Sci-Fi Survey is a Python-based aplpication designed to gather and analyze preferences related to science fiction. This tool allows users to participate in a survey that captures various aspects of their interest in sci-fi, including favorite genres, engagement frequency and preferred mediums.
 
-The app can be accessed here:
-[Sci-Fi Survey](https://sci-fi-survey-f66a7ae41cb5.herokuapp.com/)
+Demo offline — the Heroku dyno was retired. The repository is complete and redeployable.
 
 ![alt text](assets/documentation/image.png)
 
